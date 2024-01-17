@@ -12,7 +12,8 @@ Tout d'abord, quelle action souhaites-tu faire ?
 [4] - Afficher l'entiereté du stock
 """
 def fn_drawParticularStock(name):
-    for doc in connectDB.getParticularStock()
+    for doc in connectDB.getParticularStock():
+        print(doc)
 
 def fn_drawStock():
     for doc in connectDB.getAllStock():
