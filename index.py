@@ -1,8 +1,5 @@
 import pymongo
-import db 
 import cat
-from db import Database
-connectDB = Database()
 from cat import *
 PROMPT = """Bonjour et bienvenue sur GereTonStockCLI !
 Tout d'abord, quelle action souhaites-tu faire ?
@@ -11,8 +8,8 @@ Tout d'abord, quelle action souhaites-tu faire ?
 [3] - Afficher la liste d'un stock en particulier
 [4] - Afficher l'entiereté du stock
 """
-def fn_drawParticularStock(name):
-    for doc in connectDB.getParticularStock():
+def fn_drawParticularStock():
+    for doc in Drink().getParticularStock():
         print(doc)
 
 def fn_drawStock():
@@ -37,7 +34,7 @@ def fn_prompt(pr):
         case "2":
             pass
         case "3":
-            pass
+            fn_drawParticularStock()
         case "4":
            fn_drawStock()
 if __name__ == "__main__":
