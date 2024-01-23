@@ -1,43 +1,35 @@
-import pymongo
-import cat
 from cat import *
-PROMPT = """Bonjour et bienvenue sur GereTonStockCLI !
-Tout d'abord, quelle action souhaites-tu faire ?
-[1] - Ajouter du stock
-[2] - Enlever du stock
-[3] - Afficher la liste d'un stock en particulier
-[4] - Afficher l'entiereté du stock
-"""
+class Application:
+    def __init__(self):
+        self.types = "('Drink';'Food')"
 
-def fn_drawParticularStock():
-    for doc in Drink().getParticularStock():
-        print(doc)
+    def treatResponse(self):
+        match self.response:
+            case 1:
+                self.addStock()
+            case 2: 
+                print("Suppression de stock")
+            case 3: 
+                print("Afficher la liste d'un type de stock")
+            case 4: 
+                print("Afficher le stock d'un produit")
+            case 5:
+                print("Afficher l'entiereté d'un stock")
 
-def fn_drawStock():
-    for doc in connectDB.getAllStock():
-        print("Affichage du stock complet\n-----------------")
-        print(f"Libéllé de l'article : {doc['name']}")
-        print(f"Type de l'article : {doc['type']}")
-        print(f"Infos diverses du produit :")
-        try:
-            for info, value in doc['infos'].items():
-                print(f"{info} : {value}")
-        except:
-            pass
-        print("-----------------")
+    def addStock(self):
+        self.choiceType = input(f"Type du produit {self.types} : " )
+        match self.choiceType:
+            case 'Food':
+                self.newFoodItem = Food()
+            case 'Drink':
+                self.newDrinkItem = Drink()
 
-def fn_prompt(pr):
-    print(pr)
-    response = input("Votre réponse : (1, 2, 3, 4)\n")
-    match response:
-        case "1":
-            pass
-        case "2":
-            pass
-        case "3":
-            fn_drawParticularStock()
-        case "4":
-           fn_drawStock()
+    def prompt(self):
+        self.prompTxt = "Bonjour et bienvenue sur GereTonStockCLI !\nTout d'abord, quelle action souhaites-tu faire ?\n[1] - Ajouter du stock\n[2] - Enlever du stock\n[3] - Afficher la liste d'un stock en particulier\n[4] - Afficher le stock d'un produit\n[5] - Afficher l'entiereté du stock\n"
+        self.response = int(input(self.prompTxt)) or 0
+        print("__________________________")
+        self.treatResponse()
+
 if __name__ == "__main__":
-    
-    fn_prompt(PROMPT)
+    newApp = Application()
+    newApp.prompt()
