@@ -8,6 +8,7 @@ Tout d'abord, quelle action souhaites-tu faire ?
 [3] - Afficher la liste d'un stock en particulier
 [4] - Afficher l'entiereté du stock
 """
+
 def fn_drawParticularStock():
     for doc in Drink().getParticularStock():
         print(doc)

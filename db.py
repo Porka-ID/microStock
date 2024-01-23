@@ -1,10 +1,34 @@
 import pymongo
+from cat import *
 from mdp import mdp
 class Database:
     def __init__(self) -> None:
         self.client = pymongo.MongoClient(mdp)
         self.db = self.client["DBStock"]
         self.col = self.db["Stock"]
+
+    def getTypeStock(self):
+        query = {"type": self.type}
+        docs = self.col.find(query)
+        try:
+            docs = docs[0]
+            match docs['type']:
+                case "Drink":
+                    newObj = Drink()
+                    newObj.name = docs['name']
+                    newObj.type = docs['type']
+                    newObj.infos = docs['infos'] or {}
+                    newObj.qty = docs['qty']
+                case "Food":
+                    newObj = Food()
+                    newObj.name = docs['name']
+                    newObj.type = docs['type']
+                    newObj.infos = docs['infos'] or {}
+                    newObj.qty = docs['qty']
+        except: 
+            docs = False
+        finally:
+            return docs 
 
     def insertStock(self, name, type, infos, qty):
         
