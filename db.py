@@ -13,10 +13,13 @@ class DatabaseItem(Database):
     def getItemStock(self, itemName):
         self.query = {"name": itemName}
         self.docs = self.col.find(self.query)
+        print(self.docs)
         try:
             self.docs = self.docs[0]
+            return self.docs
                
         except:
+            print("why?")
             self.docs = None
         
 

@@ -9,22 +9,29 @@ class ObjectStocked:
         self.infos = infos
 
     def addToStock(self):
+        print(self.name)
+        print(self.qty)
+        print(self.infos)
         if self.name and self.qty and self.infos:
+            print("schéma relationnel")
             self.data.insertStock({"name": self.name, "type": self.type, "qty": self.qty, "infos": self.infos})
 
 
 class Drink(ObjectStocked):
-    def __init__(self, name, qty, infos):
+    def __init__(self, name=None, qty=None, infos=None):
         super().__init__(name, "Drink", qty, infos)
 
-    def 
-
+    def __setattr__(self, __name: str, __value: Any):
+        super().__setattr__(__name, __value)
         
 
 
 class Food(ObjectStocked):
-    def __init__(self, name, qty, infos):
+    def __init__(self, name=None, qty=None, infos=None):
         super().__init__(name, "Food", qty, infos)
+
+    def __setattr__(self, __name: str, __value: Any):
+        super().__setattr__(__name, __value)
         
 
 if __name__ == "__main__":
