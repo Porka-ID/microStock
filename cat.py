@@ -18,7 +18,7 @@ class ObjectStocked:
 
 
 class Drink(ObjectStocked):
-    def __init__(self, name=None, qty=None, infos=None):
+    def __init__(self, name=None, qty=None, infos={}):
         super().__init__(name, "Drink", qty, infos)
 
     def __setattr__(self, __name: str, __value: Any):
@@ -27,7 +27,7 @@ class Drink(ObjectStocked):
 
 
 class Food(ObjectStocked):
-    def __init__(self, name=None, qty=None, infos=None):
+    def __init__(self, name=None, qty=None, infos={}):
         super().__init__(name, "Food", qty, infos)
 
     def __setattr__(self, __name: str, __value: Any):

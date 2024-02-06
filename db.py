@@ -9,6 +9,10 @@ class DatabaseItem(Database):
     def __init__(self):
         super().__init__()
         self.col = self.db["Stock"]
+
+    def getAll(self):
+        return self.col.find() or False
+
     
     def getItemStock(self, itemName):
         self.query = {"name": itemName}
@@ -33,6 +37,7 @@ class DatabaseItem(Database):
             print(tbl)
             if int(self.docs["qty"]) < 0:
                 print("Vous tentez de supprimer du stock qui n'existe pas !")
+                self.deleteStock(self.docs)
             self.docs = None
             return
             
@@ -41,7 +46,12 @@ class DatabaseItem(Database):
             
     def deleteStock(self, tbl):
         if tbl:
-            self.col.delete_one({"name": tbl["name"]})
+            if self.getItemStock(tbl["name"]):
+                self.col.delete_one({"name": tbl["name"]})
+                print(f"Suppression de {tbl['name']} effectué !")
+                return True
+            else:
+                return False
 
 
     def insertStock(self, tbl):
@@ -62,4 +72,5 @@ class DatabaseItem(Database):
 
 
 if __name__ ==  "__main__":
-    pass
+    db = DatabaseItem()
+    db.getAll()
